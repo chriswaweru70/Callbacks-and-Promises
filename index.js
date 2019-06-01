@@ -1,20 +1,21 @@
 console.log('Before');
 // callback function
 getUser(1, (user) => {
-    console.log('User', user);
+  getRepositories(user.gitHubUsername, (repos) => {
+      getCommits(repos[0], (commits) => {
+          console.log(commits);
+      })
+  })   
 
 });
-    // Get the repositories
-getRepositories('User.gitHubUserName', (repos) => {
-     console.log('Repositories', repos)
-});    
+    // Get the repositories   
 
 console.log('After');
 
  function getUser(id , callback) {
     setTimeout(() => {
         console.log('Reading a user from a database...');
-        callback({  id: id , gitHubUserName: 'Chris' });
+        callback({  id: id , gitHubUsername: 'Chris' });
      }, 2000);
  }
 
@@ -30,21 +31,21 @@ console.log('After');
 
  // Asynchronous version.
 
- console.log('Before');
- getUser(1, getRepositories);
-   console.log('After');
+//  console.log('Before');
+//  getUser(1, getRepositories);
+//    console.log('After');
 
-function displayCommits(commits){
-    console.log('commits');
-};
+// function displayCommits(commits){
+//     console.log('commits');
+// };
 
-function getCommits(repos) {
-    getCommits(repo, displayCommits);
-};
+// function getCommits(repos) {
+//     getCommits(repo, displayCommits);
+// };
 
-function getRepositories(user) {
-    getRepositories(user.gitHubUserName, getCommits); 
-};
+// function getRepositories(user) {
+//     getRepositories(user.gitHubUsername, getCommits); 
+// };
 
 // Synchronous Version
 
